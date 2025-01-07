@@ -16,6 +16,11 @@ vim.g.have_nerd_font = true
 --  For more options, you can see `:help option-list`
 --
 
+-- Spell Checking
+vim.opt.spell = true
+vim.opt.spelllang = 'en_us'
+vim.opt.spelloptions = {'camel'}
+
 -- Make line numbers default
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
@@ -124,6 +129,8 @@ if not vim.loop.fs_stat(lazypath) then
   vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
+
+require './ginit'
 
 -- [[ Configure and install plugins ]]
 --
