@@ -19,7 +19,7 @@ vim.g.have_nerd_font = true
 -- Spell Checking
 vim.opt.spell = true
 vim.opt.spelllang = 'en_us'
-vim.opt.spelloptions = {'camel'}
+vim.opt.spelloptions = { 'camel' }
 
 -- Make line numbers default
 vim.opt.number = true
@@ -524,7 +524,8 @@ require('lazy').setup({
         emmet_language_server = {
           filetypes = { 'css', 'eruby', 'html', 'javascript', 'javascriptreact', 'less', 'sass', 'scss', 'pug', 'typescriptreact', 'cshtml', 'razor' },
         },
-        csharp_ls = {},
+        roslyn = {},
+        rzls = {},
         ts_ls = {},
         lua_ls = {
           -- cmd = {...},
@@ -548,7 +549,12 @@ require('lazy').setup({
       --    :Mason
       --
       --  You can press `g?` for help in this menu.
-      require('mason').setup()
+      require('mason').setup {
+        registries = {
+          'github:mason-org/mason-registry',
+          'github:Crashdummyy/mason-registry',
+        },
+      }
 
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
@@ -722,6 +728,34 @@ require('lazy').setup({
       }
     end,
   },
+  {
+    -- TODO: delete when no longer needed
+    'seblj/roslyn.nvim',
+    ft = { 'cs', 'razor' },
+    dependencies = {
+      {
+        'tris203/rzls.nvim',
+        config = function()
+          require('rzls').setup {}
+        end,
+      },
+    },
+    config = function()
+      require('roslyn').setup {
+        config = {
+          handlers = require 'rzls.roslyn_handlers',
+        },
+      }
+    end,
+    init = function()
+      vim.filetype.add {
+        extension = {
+          razor = 'razor',
+          cshtml = 'razor',
+        },
+      }
+    end,
+  },
 
   { -- You can easily change to a different colorscheme.
     -- Change the name of the colorscheme plugin below, and then
@@ -763,6 +797,8 @@ require('lazy').setup({
       require('mini.surround').setup()
 
       require('mini.pairs').setup()
+
+      require('mini.splitjoin').setup()
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
