@@ -526,6 +526,7 @@ require('lazy').setup({
         },
         roslyn = {},
         rzls = {},
+        ols = {},
         ts_ls = {},
         lua_ls = {
           -- cmd = {...},
