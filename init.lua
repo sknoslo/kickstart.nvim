@@ -854,6 +854,41 @@ require('lazy').setup({
     end,
   },
 
+  {
+    'zbirenbaum/copilot.lua',
+    opts = {
+      panel = { enabled = false },
+      suggestion = {
+        auto_trigger = false,
+        keymap = {
+          accept = '<C-y>',
+          accept_word = false,
+          accept_line = false,
+          next = '<C-n>',
+          prev = '<C-p>',
+          dismiss = '<Esc>',
+        },
+      },
+    },
+    config = function(_, opts)
+      local cmp = require 'cmp'
+      local copilot = require 'copilot.suggestion'
+
+      require('copilot').setup(opts)
+
+      cmp.event:on('menu_opened', function()
+        if copilot.is_visible() then
+          copilot.dismiss()
+        end
+        vim.b.copilot_suggestion_hidden = true
+      end)
+
+      cmp.event:on('menu_closed', function()
+        vim.b.copilot_suggestion_hidden = false
+      end)
+    end,
+  },
+
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.
