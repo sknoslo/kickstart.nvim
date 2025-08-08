@@ -861,11 +861,11 @@ require('lazy').setup({
       suggestion = {
         auto_trigger = false,
         keymap = {
-          accept = '<C-y>',
+          accept = '<A-y>',
           accept_word = false,
           accept_line = false,
-          next = '<C-n>',
-          prev = '<C-p>',
+          next = '<A-n>',
+          prev = '<A-p>',
           dismiss = '<Esc>',
         },
       },

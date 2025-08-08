@@ -1,5 +1,5 @@
 if vim.g.neovide then
-  vim.o.guifont = 'FantasqueSansM_Nerd_Font_Mono:h16'
+  vim.o.guifont = 'FantasqueSansM_Nerd_Font:h16'
 
   vim.g.neovide_floating_corner_radius = 1.0
 
